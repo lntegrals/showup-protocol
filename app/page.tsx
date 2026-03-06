@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 
 // Simple commitment creation
 export default function Home() {
@@ -17,17 +17,20 @@ export default function Home() {
     }
   ]);
 
-  const createCommitment = (e) => {
+  const createCommitment = (e: FormEvent) => {
     e.preventDefault();
-    const form = e.target;
+    const form = e.target as HTMLFormElement;
     const newCommitment = {
       id: Date.now().toString(),
-      title: form.title.value,
-      description: form.description.value,
-      stake: form.stake.value + ' XRP',
+      title: (form.elements.namedItem('title') as HTMLInputElement).value,
+      description: (form.elements.namedItem('description') as HTMLInputElement).value,
+      stake: (form.elements.namedItem('stake') as HTMLInputElement).value + ' XRP',
       status: 'active',
-      participants: [form.p1.value, form.p2.value],
-      time: form.time.value
+      participants: [
+        (form.elements.namedItem('p1') as HTMLInputElement).value,
+        (form.elements.namedItem('p2') as HTMLInputElement).value
+      ],
+      time: (form.elements.namedItem('time') as HTMLInputElement).value
     };
     setCommitments([newCommitment, ...commitments]);
     setView('dashboard');
