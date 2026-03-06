@@ -5,7 +5,7 @@ export const metadata = {
   description: 'Decentralized commitment staking on XRPL + IPFS',
 }
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>{children}</body>
